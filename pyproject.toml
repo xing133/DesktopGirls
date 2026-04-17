@@ -6,7 +6,18 @@ readme = "README.md"
 requires-python = ">=3.12"
 dependencies = [
     "backgroundremover",
-    "PyGObject<3.50",
-    "pycairo",
+    "torch",
+    "torchvision",
+    "PyGObject<3.50; sys_platform == 'linux'",
+    "pycairo; sys_platform == 'linux'",
     "PySide6",
 ]
+
+[[tool.uv.index]]
+name = "pytorch-cuda"
+url = "https://download.pytorch.org/whl/cu128"
+explicit = true
+
+[tool.uv.sources]
+torch = { index = "pytorch-cuda" }
+torchvision = { index = "pytorch-cuda" }

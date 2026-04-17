@@ -40,11 +40,13 @@ class DesktopDancerTray:
         quit_action.triggered.connect(on_quit)
         self._menu.addAction(quit_action)
 
-        self._tray.setContextMenu(self._menu)
         self._tray.activated.connect(self._on_tray_activated)
 
     def _on_tray_activated(self, reason: QSystemTrayIcon.ActivationReason) -> None:
-        if reason == QSystemTrayIcon.ActivationReason.Context:
+        if reason in (
+            QSystemTrayIcon.ActivationReason.Context,
+            QSystemTrayIcon.ActivationReason.Trigger,
+        ):
             self._menu.popup(QCursor.pos())
         elif reason == QSystemTrayIcon.ActivationReason.DoubleClick:
             self._on_add_wife()
